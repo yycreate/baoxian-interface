@@ -1,0 +1,56 @@
+server:
+  port: 9999
+
+spring:
+  security:
+    user:
+      name: admin
+      password: good_abmin
+      roles: SUPPERUSER
+  redis:
+    database: 0
+#    host: 118.89.64.133
+#    password: lesso2128
+    host: 127.0.0.1
+    password: ABCDEFG
+    port: 6379
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      repositories:
+        enabled: true
+#    mongodb:
+#      database: test
+#      host: 127.0.0.1
+#      port: 27017
+#      uri: mongodb://develop:develop133@118.89.64.133:27017/test
+  datasource: 
+    mysql: 
+      url: jdbc:mysql://127.0.0.1:3306/wxdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      driverClassName: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+eureka: 
+  client: 
+    registerWithEureka: false
+    fetchRegistry: false
+    
+mybatis: 
+  typeAliasesPackage: com.yxkj.function
+  mapperLocations: classpath:mapper/**/*Mapper.xml
+
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint: 
+    shutdown:
+      enabled: true
+ 
+
+
+  
+
+
