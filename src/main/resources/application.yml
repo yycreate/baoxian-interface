@@ -19,17 +19,17 @@ spring:
       cluster-nodes: 127.0.0.1:9300
       repositories:
         enabled: true
-#    mongodb:
-#      database: test
-#      host: 127.0.0.1
-#      port: 27017
-#      uri: mongodb://develop:develop133@118.89.64.133:27017/test
+    mongodb:
+      database: test
+      host: 127.0.0.1
+      port: 27017
+      uri: mongodb://develop:develop133@118.89.64.133:27017/test
   datasource: 
     mysql: 
       url: jdbc:mysql://127.0.0.1:3306/wxdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       driverClassName: com.mysql.jdbc.Driver
       username: root
-      password: 123456
+      password: YYMySql2012
 eureka: 
   client: 
     registerWithEureka: false
