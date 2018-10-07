@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxkj.function.tp.mapper.InsuranceMapper">
+  <resultMap id="BaseResultMap" type="com.yxkj.function.tp.Entity.Insurance">
+    <id column="insurance_id" jdbcType="BIGINT" property="insurance_id" />
+    <result column="insurance_number" jdbcType="VARCHAR" property="insurance_number" />
+    <result column="insurance_type_id" jdbcType="BIGINT" property="insurance_type_id" />
+    <result column="insurance_type_name" jdbcType="VARCHAR" property="insurance_type_name" />
+    <result column="policy_holder_name" jdbcType="VARCHAR" property="policy_holder_name" />
+    <result column="policy_holder_sex" jdbcType="VARCHAR" property="policy_holder_sex" />
+    <result column="policy_creit_card" jdbcType="VARCHAR" property="policy_creit_card" />
+    <result column="policy_holder_birthday" jdbcType="VARCHAR" property="policy_holder_birthday" />
+    <result column="insured_person_name" jdbcType="VARCHAR" property="insured_person_name" />
+    <result column="insured_person_sex" jdbcType="VARCHAR" property="insured_person_sex" />
+    <result column="insured_creit_card" jdbcType="VARCHAR" property="insured_creit_card" />
+    <result column="insured_person_birthday" jdbcType="VARCHAR" property="insured_person_birthday" />
+    <result column="worker_number" jdbcType="VARCHAR" property="worker_number" />
+    <result column="file_id" jdbcType="BIGINT" property="file_id" />
+    <result column="is_check" jdbcType="INTEGER" property="is_check" />
+    <result column="sure_num" jdbcType="INTEGER" property="sure_num" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    insurance_id, insurance_number, insurance_type_id, insurance_type_name, policy_holder_name, 
+    policy_holder_sex, policy_creit_card, policy_holder_birthday, insured_person_name, 
+    insured_person_sex, insured_creit_card, insured_person_birthday, worker_number, file_id, 
+    is_check, sure_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tp3_insurance
+    where insurance_id = #{insurance_id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tp3_insurance
+    where insurance_id = #{insurance_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxkj.function.tp.Entity.Insurance">
+    insert into tp3_insurance (insurance_id, insurance_number, insurance_type_id, 
+      insurance_type_name, policy_holder_name, 
+      policy_holder_sex, policy_creit_card, policy_holder_birthday, 
+      insured_person_name, insured_person_sex, 
+      insured_creit_card, insured_person_birthday, 
+      worker_number, file_id, is_check, 
+      sure_num)
+    values (#{insurance_id,jdbcType=BIGINT}, #{insurance_number,jdbcType=VARCHAR}, #{insurance_type_id,jdbcType=BIGINT}, 
+      #{insurance_type_name,jdbcType=VARCHAR}, #{policy_holder_name,jdbcType=VARCHAR}, 
+      #{policy_holder_sex,jdbcType=VARCHAR}, #{policy_creit_card,jdbcType=VARCHAR}, #{policy_holder_birthday,jdbcType=VARCHAR}, 
+      #{insured_person_name,jdbcType=VARCHAR}, #{insured_person_sex,jdbcType=VARCHAR}, 
+      #{insured_creit_card,jdbcType=VARCHAR}, #{insured_person_birthday,jdbcType=VARCHAR}, 
+      #{worker_number,jdbcType=VARCHAR}, #{file_id,jdbcType=BIGINT}, #{is_check,jdbcType=INTEGER}, 
+      #{sure_num,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxkj.function.tp.Entity.Insurance">
+    insert into tp3_insurance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="insurance_id != null">
+        insurance_id,
+      </if>
+      <if test="insurance_number != null">
+        insurance_number,
+      </if>
+      <if test="insurance_type_id != null">
+        insurance_type_id,
+      </if>
+      <if test="insurance_type_name != null">
+        insurance_type_name,
+      </if>
+      <if test="policy_holder_name != null">
+        policy_holder_name,
+      </if>
+      <if test="policy_holder_sex != null">
+        policy_holder_sex,
+      </if>
+      <if test="policy_creit_card != null">
+        policy_creit_card,
+      </if>
+      <if test="policy_holder_birthday != null">
+        policy_holder_birthday,
+      </if>
+      <if test="insured_person_name != null">
+        insured_person_name,
+      </if>
+      <if test="insured_person_sex != null">
+        insured_person_sex,
+      </if>
+      <if test="insured_creit_card != null">
+        insured_creit_card,
+      </if>
+      <if test="insured_person_birthday != null">
+        insured_person_birthday,
+      </if>
+      <if test="worker_number != null">
+        worker_number,
+      </if>
+      <if test="file_id != null">
+        file_id,
+      </if>
+      <if test="is_check != null">
+        is_check,
+      </if>
+      <if test="sure_num != null">
+        sure_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="insurance_id != null">
+        #{insurance_id,jdbcType=BIGINT},
+      </if>
+      <if test="insurance_number != null">
+        #{insurance_number,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance_type_id != null">
+        #{insurance_type_id,jdbcType=BIGINT},
+      </if>
+      <if test="insurance_type_name != null">
+        #{insurance_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_name != null">
+        #{policy_holder_name,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_sex != null">
+        #{policy_holder_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_creit_card != null">
+        #{policy_creit_card,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_birthday != null">
+        #{policy_holder_birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_name != null">
+        #{insured_person_name,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_sex != null">
+        #{insured_person_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_creit_card != null">
+        #{insured_creit_card,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_birthday != null">
+        #{insured_person_birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="worker_number != null">
+        #{worker_number,jdbcType=VARCHAR},
+      </if>
+      <if test="file_id != null">
+        #{file_id,jdbcType=BIGINT},
+      </if>
+      <if test="is_check != null">
+        #{is_check,jdbcType=INTEGER},
+      </if>
+      <if test="sure_num != null">
+        #{sure_num,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxkj.function.tp.Entity.Insurance">
+    update tp3_insurance
+    <set>
+      <if test="insurance_number != null">
+        insurance_number = #{insurance_number,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance_type_id != null">
+        insurance_type_id = #{insurance_type_id,jdbcType=BIGINT},
+      </if>
+      <if test="insurance_type_name != null">
+        insurance_type_name = #{insurance_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_name != null">
+        policy_holder_name = #{policy_holder_name,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_sex != null">
+        policy_holder_sex = #{policy_holder_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_creit_card != null">
+        policy_creit_card = #{policy_creit_card,jdbcType=VARCHAR},
+      </if>
+      <if test="policy_holder_birthday != null">
+        policy_holder_birthday = #{policy_holder_birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_name != null">
+        insured_person_name = #{insured_person_name,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_sex != null">
+        insured_person_sex = #{insured_person_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_creit_card != null">
+        insured_creit_card = #{insured_creit_card,jdbcType=VARCHAR},
+      </if>
+      <if test="insured_person_birthday != null">
+        insured_person_birthday = #{insured_person_birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="worker_number != null">
+        worker_number = #{worker_number,jdbcType=VARCHAR},
+      </if>
+      <if test="file_id != null">
+        file_id = #{file_id,jdbcType=BIGINT},
+      </if>
+      <if test="is_check != null">
+        is_check = #{is_check,jdbcType=INTEGER},
+      </if>
+      <if test="sure_num != null">
+        sure_num = #{sure_num,jdbcType=INTEGER},
+      </if>
+    </set>
+    where insurance_id = #{insurance_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxkj.function.tp.Entity.Insurance">
+    update tp3_insurance
+    set insurance_number = #{insurance_number,jdbcType=VARCHAR},
+      insurance_type_id = #{insurance_type_id,jdbcType=BIGINT},
+      insurance_type_name = #{insurance_type_name,jdbcType=VARCHAR},
+      policy_holder_name = #{policy_holder_name,jdbcType=VARCHAR},
+      policy_holder_sex = #{policy_holder_sex,jdbcType=VARCHAR},
+      policy_creit_card = #{policy_creit_card,jdbcType=VARCHAR},
+      policy_holder_birthday = #{policy_holder_birthday,jdbcType=VARCHAR},
+      insured_person_name = #{insured_person_name,jdbcType=VARCHAR},
+      insured_person_sex = #{insured_person_sex,jdbcType=VARCHAR},
+      insured_creit_card = #{insured_creit_card,jdbcType=VARCHAR},
+      insured_person_birthday = #{insured_person_birthday,jdbcType=VARCHAR},
+      worker_number = #{worker_number,jdbcType=VARCHAR},
+      file_id = #{file_id,jdbcType=BIGINT},
+      is_check = #{is_check,jdbcType=INTEGER},
+      sure_num = #{sure_num,jdbcType=INTEGER}
+    where insurance_id = #{insurance_id,jdbcType=BIGINT}
+  </update>
+</mapper>

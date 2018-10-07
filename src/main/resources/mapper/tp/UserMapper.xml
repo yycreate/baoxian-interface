@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxkj.function.tp.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yxkj.function.tp.Entity.User">
+    <id column="user_id" jdbcType="BIGINT" property="user_id" />
+    <result column="open_id" jdbcType="VARCHAR" property="open_id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="worker_number" jdbcType="VARCHAR" property="worker_number" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, open_id, name, phone, worker_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tp3_user
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tp3_user
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxkj.function.tp.Entity.User">
+    insert into tp3_user (user_id, open_id, name, 
+      phone, worker_number)
+    values (#{user_id,jdbcType=BIGINT}, #{open_id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{worker_number,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxkj.function.tp.Entity.User">
+    insert into tp3_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="open_id != null">
+        open_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="worker_number != null">
+        worker_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=BIGINT},
+      </if>
+      <if test="open_id != null">
+        #{open_id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="worker_number != null">
+        #{worker_number,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxkj.function.tp.Entity.User">
+    update tp3_user
+    <set>
+      <if test="open_id != null">
+        open_id = #{open_id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="worker_number != null">
+        worker_number = #{worker_number,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxkj.function.tp.Entity.User">
+    update tp3_user
+    set open_id = #{open_id,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      worker_number = #{worker_number,jdbcType=VARCHAR}
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </update>
+</mapper>

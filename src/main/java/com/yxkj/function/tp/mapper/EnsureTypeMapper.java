@@ -1,10 +1,7 @@
 package com.yxkj.function.tp.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.yxkj.function.tp.Entity.EnsureType;
 
-@Component
 public interface EnsureTypeMapper {
     int deleteByPrimaryKey(Integer id);
 

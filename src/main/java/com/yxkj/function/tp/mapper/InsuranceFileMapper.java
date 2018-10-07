@@ -1,11 +1,7 @@
 package com.yxkj.function.tp.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.springframework.stereotype.Component;
-
 import com.yxkj.function.tp.Entity.InsuranceFile;
 
-@Component
 public interface InsuranceFileMapper {
     int deleteByPrimaryKey(Long insurance_file_id);
 
@@ -18,5 +14,4 @@ public interface InsuranceFileMapper {
     int updateByPrimaryKeySelective(InsuranceFile record);
 
     int updateByPrimaryKey(InsuranceFile record);
-    
 }
