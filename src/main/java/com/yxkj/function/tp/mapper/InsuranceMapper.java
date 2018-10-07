@@ -1,7 +1,10 @@
 package com.yxkj.function.tp.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.yxkj.function.tp.Entity.Insurance;
 
+@Component
 public interface InsuranceMapper {
     int deleteByPrimaryKey(Long insurance_id);
 

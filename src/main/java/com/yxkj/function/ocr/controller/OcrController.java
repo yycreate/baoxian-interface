@@ -126,7 +126,7 @@ public class OcrController {
 	private String webName = "https://www.pailibaook.com/Uploads/main/"+DateNowStr()+"/";
 	
 	//上传路径
-	private String uploadPath ="C:/wamp01/www/Uploads/main/"+DateNowStr()+"/";
+	private String uploadPath ="C:/wamp64/www/Uploads/main/"+DateNowStr()+"/";
 	
 	@Autowired
 	private FileService fileService;
