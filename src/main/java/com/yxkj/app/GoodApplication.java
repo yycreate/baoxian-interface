@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.yxkj.function","com.yxkj.configuration"})
-@MapperScan(basePackages = {"com.yxkj.function.tp.mapper"})
+@MapperScan(basePackages = {"com.yxkj.function.tp.mapper","com.yxkj.function.tp.mapper.other"})
 @EnableAutoConfiguration
 @EnableSwagger2
 @EnableEurekaServer
