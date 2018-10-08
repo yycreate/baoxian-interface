@@ -18,11 +18,11 @@ public class WxMinCodeUtil {
 	 * @return JSONObject
 	 */
 	public static JSONObject getUserInfoTool(String APPID,String SECRET, String JSCODE){
-		String url="https://api.weixin.qq.com/sns/jscode2session？appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=GRANT_TYPE";
-		url.replace("APPID", APPID);
-		url.replace("SECRET", SECRET);
-		url.replace("JSCODE", JSCODE);
-		url.replace("GRANT_TYPE", "authorization_code");
+		String url="https://api.weixin.qq.com/sns/jscode2session"
+				+"?appid="+APPID
+				+"&secret="+SECRET
+				+"&js_code="+JSCODE
+				+"&grant_type=authorization_code";
 		String result = HttpUtil.sendGet(url);
 		return JSONObject.parseObject(result);
 	}

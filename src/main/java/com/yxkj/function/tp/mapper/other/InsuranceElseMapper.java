@@ -22,8 +22,8 @@ public interface InsuranceElseMapper {
 	@Select("select * from tp3_insurance where worker_number = #{workerNumber} and insured_person_name = #{insured_person_name}")
 	public List<Map<String, Object>> listSomeOneInsuance(@Param("workerNumber")String workerNumber,@Param("insured_person_name")String insured_person_name, @Param("status")Integer status);
 	
-	@Select("select count(0) count, insured_person_name from tp3_insurance where worker_number = #{workerNumber} group by #{insured_person_name}")
-	public List<Map<String, Object>> personWithInsure(@Param("workerNumber")String workerNumber,@Param("insured_person_name")String insured_person_name, @Param("status")Integer status);
+	@Select("select count(0) count, insured_person_name from tp3_insurance where worker_number = #{workerNumber} group by insured_person_name")
+	public List<Map<String, Object>> personWithInsure(@Param("workerNumber")String workerNumber, @Param("status")Integer status);
 	
 	@Update("")
 	void updateInsuraceInfo(Insurance insurance);

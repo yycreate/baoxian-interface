@@ -1,5 +1,7 @@
 package com.yxkj.function.tp.mapper.other;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -13,8 +15,8 @@ public interface UserElseMapper {
 	@Select("select * from tp3_user where open_id = #{openId}")
 	public User UserInfo(@Param(value="openId") String openId);
 	
-	@Insert("insert into tp3_user (id,open_id,worker_number) values (#{id}, #{openId}, #{workerNumber})")
-	public User addUserOne(@Param(value="id")Long id,@Param(value="openId") String openId, @Param(value="workerNumber")String workerNumber);
+	@Insert("insert into tp3_user (user_id,open_id,worker_number) values (#{id}, #{openId}, #{workerNumber})")
+	public Map<String, Object> addUserOne(@Param(value="id")Long id,@Param(value="openId") String openId, @Param(value="workerNumber")String workerNumber);
 	
 	
 	

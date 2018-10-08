@@ -1,16 +1,15 @@
 package com.yxkj.function.tp.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.yxkj.common.eumn.StatusType;
 import com.yxkj.common.network.Response;
@@ -19,7 +18,7 @@ import com.yxkj.function.tp.mapper.other.InsuranceElseMapper;
 
 import springfox.documentation.annotations.ApiIgnore;
 
-@Controller
+@RestController
 @RequestMapping(value="/api/Insurance")
 public class InsuranceController {
 	
@@ -57,15 +56,14 @@ public class InsuranceController {
 	 * @return list
 	 * */
 	@ApiIgnore("查询保单根据 用户名分组")
-	@RequestMapping(value="/personWithInsure")
+	@RequestMapping(value="/personWithInsure",method=RequestMethod.GET)
 	public Response personWithInsure(
-			@RequestParam(required = true, value="worker_number")@RequestAttribute(required = true, value="工号")String worker_number,
-			@RequestParam(required = true, value="insured_person_name")@RequestAttribute(required = true, value="被保人名字")String insured_person_name
+			@RequestParam(required = true, value="worker_number")@RequestAttribute(required = true, value="工号")String worker_number
 			) {
 		Response response = new Response<>();
 		try {
 			List<Map<String, Object>> result = new ArrayList<>();
-			result = InsuranceElseMapper.personWithInsure(worker_number, insured_person_name,StatusType.NORMAL.getCode());
+			result = InsuranceElseMapper.personWithInsure(worker_number, StatusType.NORMAL.getCode());
 			return response.success(result);
 		} catch (Exception e) {
 			e.printStackTrace();

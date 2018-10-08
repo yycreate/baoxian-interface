@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
@@ -36,7 +37,7 @@ import com.yxkj.function.tp.service.FileService;
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Controller
+@RestController
 @RequestMapping(value="/ocr")
 @Api(value="百度语音识别保单信息")
 public class OcrController {
