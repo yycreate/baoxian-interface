@@ -1,5 +1,12 @@
 package com.yxkj.common.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -8,16 +15,11 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class HttpUtil {
 
@@ -108,5 +110,71 @@ public class HttpUtil {
         }
         return result;
     }
+    
+    /**
+     * 发送HttpPost请求，无参数名称
+     * @param url
+     * @param map
+     * @return
+     */
+    public static String sendPost(String url, String params) throws UnsupportedEncodingException {
+    	StringEntity entity = new StringEntity(params,"utf-8");//解决中文乱码问题 
+
+        HttpPost httppost = new HttpPost(url);
+        httppost.setEntity(entity);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpclient.execute(httppost);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HttpEntity entity1 = response.getEntity();
+        String result = null;
+        try {
+            result = EntityUtils.toString(entity1);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    
+    
+    /**
+     * 发送HttpGet请求
+     * @param url
+     * @return
+     */
+    public static String sendGet2(String url) throws UnsupportedEncodingException {
+
+        HttpGet httpget = new HttpGet(url);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpclient.execute(httpget);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        String result = null;
+        try {
+        	
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                result = EntityUtils.getContentCharSet(entity);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    
+    
+
 
 }

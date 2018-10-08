@@ -83,7 +83,7 @@ CREATE TABLE `tp3_ensure_insurace_relation` (
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('1', '重疾防癌', '金佑人生终身寿险(分红型)A款(2014版)', '0', '2018-08-07 23:46:00', '2018-08-07 23:46:00', '特定疾病保费豁免');
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('2', '重疾防癌', '金佑人生终身寿险(分红型)A款(2014版)', '2000', '2018-08-07 23:47:43', '2018-08-07 23:47:43', '12种特定疾病保障');
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('3', '重疾防癌', '金佑人生终身寿险(分红型)A款(2014版)', '10000', '2018-08-07 23:47:46', '2018-08-07 23:47:46', '60种重大疾病保障');
-INSERT INTO `tp3_ensure_insurace_relation` VALUES ('4', '意外保障', '金金佑人生终身寿险(分红型)A款(2014版)', '10000', '2018-08-07 23:47:49', '2018-08-07 23:47:49', '意外身故保障');
+INSERT INTO `tp3_ensure_insurace_relation` VALUES ('4', '意外保障', '金佑人生终身寿险(分红型)A款(2014版)', '10000', '2018-08-07 23:47:49', '2018-08-07 23:47:49', '意外身故保障');
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('5', '生命保障', '金佑人生终身寿险(分红型)A款(2014版)', '10000', '2018-08-07 23:47:50', '2018-08-07 23:47:50', '疾病身故保障');
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('6', '重疾防癌', '爱无忧两全保险(2.0版）', '50000', '2018-08-07 23:57:53', '2018-08-07 23:57:53', '甲状腺恶性肿瘤');
 INSERT INTO `tp3_ensure_insurace_relation` VALUES ('7', '重疾防癌', '爱无忧两全保险(2.0版）', '100000', '2018-08-07 23:57:55', '2018-08-07 23:57:55', '其他恶性肿瘤');
