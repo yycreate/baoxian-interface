@@ -81,7 +81,7 @@ public class UserController {
 	    grant_type: 'authorization_code'
 	 * */
 	@ApiIgnore(value="小程序登录获取openId")
-	@RequestMapping("/wx/openInfo")
+	@RequestMapping(value = "/wx/openInfo" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response wxLogin(String js_code, String grant_type) {
 		Response response = new Response(); 
 		try {

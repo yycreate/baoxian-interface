@@ -17,7 +17,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,83 +45,10 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(value="百度语音识别保单信息")
 public class OcrController {
 	
-	@ApiIgnore(value="描述接口功能")
-	@RequestMapping(value="/message")
+	@ApiIgnore(value="描述接口功能 ")
+	@RequestMapping(value="/message",method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response message() {
 		return new Response().success("百度语音识别保单信息,v1.0.0");
-	}
-	
-	
-	@ApiIgnore(value="描述接口功能")
-	@RequestMapping(value="/uploadAndRead")
-	public Response readImageAndLoadFile() {
-		Response response = new Response();
-		
-		//保存文件到
-		
-		
-		
-		//获取文件信息
-		OcrConfig conf = OCRConfigUtil.getInstance();
-		// 初始化一个AipOcr
-		AipOcr client = new AipOcr(conf.getAPP_ID(), conf.getAPP_KEY(), conf.getAPP_SECRET());
-
-		HashMap<String, String> options = new HashMap<String, String>();
-	    options.put("detect_direction", "true");
-	    options.put("probability", "true");
-	    
-	    
-	    // 参数为本地图片路径
-	    String image = "test.jpg";
-	    JSONObject res = client.basicAccurateGeneral(image, options);
-	    System.out.println(res.toString(2));
-
-	    // 参数为本地图片二进制数组
-//	    byte[] file = readImageFile(image);
-//	    
-//	    res = client.basicAccurateGeneral(file, options);
-//	    System.out.println(res.toString(2));
-		
-		
-		return response.failure();
-	}
-	
-	
-	@ApiIgnore(value="上传文件测试")
-	@RequestMapping(value="/upload01")
-	public void uploadTest(HttpServletRequest request, HttpServletResponse response) {
-        if (request.getContentLength() > 0) {
-               InputStream inputStream = null;
-               FileOutputStream outputStream = null;
-            try {
-                inputStream = request.getInputStream();
-                // 给新文件拼上时间毫秒，防止重名
-                long now = System.currentTimeMillis();
-                File file = new File("c:/", "file-" + now + ".jpg");
-                file.createNewFile();
-                outputStream = new FileOutputStream(file);
-                byte temp[] = new byte[1024];
-                int size = -1;
-                while ((size = inputStream.read(temp)) != -1) { // 每次读取1KB，直至读完
-                    outputStream.write(temp, 0, size);
-                }
-            } catch (IOException e) {
-            	
-            } finally {
-                try {
-					outputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-                try {
-					inputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-            }
-        }
-     
-        
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(OcrController.class);
@@ -140,18 +70,16 @@ public class OcrController {
 		return nowdateStr;
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST) 
+	@ApiIgnore("文件上传并读取信息")
+	@RequestMapping(value = "/upload", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public String upload(HttpServletRequest request, @RequestParam(value = "img", required = false) MultipartFile file){
 		try {
-		request.setCharacterEncoding("UTF-8");        
-		logger.info("执行图片上传");        
-		String user = request.getParameter("user");        
-		logger.info("user:"+user);
+		request.setCharacterEncoding("UTF-8");
+		String user = request.getParameter("user");
 		
 		//保存保单新信息的id
-		Long id = -1l;
-		
-		
+		Long id = BaseUtil.GetWorkerId();//获取id
 		String path = null;
 		if(!file.isEmpty()) {
 			logger.info("成功获取照片");            
@@ -175,21 +103,23 @@ public class OcrController {
 			    
 			    //保存文件信息
 				InsuranceFile fileParams = new InsuranceFile();
-				id = BaseUtil.GetWorkerId();//获取id
 				fileParams.setInsurance_file_id(id);
 				fileParams.setUrl(webName+trueFileName);
 				fileService.createFileRecord(fileParams);
 			    
 			}else {
 				logger.info("不是我们想要的文件类型,请按要求重新上传");
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				return "error";
 			}
 			}else {
 				logger.info("文件类型为空");
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				return "error";            
 			}        
 		}else {            
 			logger.info("没有找到相对应的文件");
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			return "error";
 		}
 		//保存保单信息
@@ -216,7 +146,7 @@ public class OcrController {
 				su.setPolicy_holder_name(aData.get("words").toString().substring(4));
 			}
 			if(BaseUtil.ZZ(aData.get("words").toString(), "^投保份数.*")) {
-				su.setSure_num(Integer.parseInt(aData.get("words").toString().substring(4).split(".0")[0]));
+				su.setSure_num(Integer.parseInt(aData.get("words").toString().substring(4).split(".00")[0].toString()));
 			}
 			if(BaseUtil.ZZ(aData.get("words").toString(), "^保险单号.*")) {
 				su.setInsurance_number(aData.get("words").toString().substring(4));
@@ -231,9 +161,24 @@ public class OcrController {
 		fileService.createInsuranceRecord(su);
 		}catch(Exception e) {
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return "error";
 		}
 		
 		return "success";
+	}
+	
+	private class ReadImageRunable implements Runnable {
+		private String path;
+		ReadImageRunable(String path){
+			this.path = path;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	//删除文件接口
