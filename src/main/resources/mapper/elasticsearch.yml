@@ -1,0 +1,6 @@
+index:
+  analysis:
+    analyzer:      
+      ik:
+          alias: [ik_analyzer]
+          type: org.elasticsearch.index.analysis.IkAnalyzerProvide

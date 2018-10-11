@@ -13,6 +13,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.action.ActionFuture;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequest;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -186,6 +189,14 @@ public class OcrController {
 	//修改文件名接口  -- 修改表的文件名
 	
 	//清除多余文件接口
+	
+	
+	public void test() {
+		
+		
+		
+		
+	}
 	
 	//end
 	
