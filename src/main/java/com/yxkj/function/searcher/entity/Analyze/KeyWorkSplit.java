@@ -13,26 +13,11 @@ import org.elasticsearch.index.analysis.AbstractIndexAnalyzerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Component;
-import org.wltea.analyzer.lucene.IKAnalyzer;
 
 @Component
-public class KeyWorkSplit extends AbstractIndexAnalyzerProvider<IKAnalyzer>{
+public class KeyWorkSplit {
 	
 	
-
-	public KeyWorkSplit(IndexSettings indexSettings, String name, Settings settings) {
-		super(indexSettings, name, settings);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Autowired
-    ElasticsearchTemplate elasticsearchTemplate;
-
-	@Override
-	public IKAnalyzer get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 	

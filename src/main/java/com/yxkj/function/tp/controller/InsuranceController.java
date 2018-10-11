@@ -29,18 +29,17 @@ public class InsuranceController {
 	/***
 	 * 根据用户查询表单列表
 	 * @param workerNumber 工号
-	 * 
 	 * */
 	@ApiIgnore("根据用户查询表单列表")
-	@RequestMapping(value="/listresurace")
+	@RequestMapping(value="/listresuraceByName")
 	public Response listresurace(
-			@RequestParam(required = true, value="workerNumber")@RequestAttribute(required = true, value="工号")
-			String workerNumber
+			@RequestParam(required = true, value="name")@RequestAttribute(required = true, value="名字")
+			String name
 			) {
 		Response response = new Response<>();
 		try {
 			List<Map<String, Object>> result = new ArrayList<>();
-			result = InsuranceElseMapper.listInsuance(workerNumber, StatusType.NORMAL.getCode());
+			result = InsuranceElseMapper.listInsuanceWithName(name, StatusType.NORMAL.getCode());
 			return response.success(result);
 		} catch (Exception e) {
 			e.printStackTrace();

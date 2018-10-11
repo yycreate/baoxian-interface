@@ -56,8 +56,8 @@
             <artifactId>jna</artifactId>
             <!-- <version>3.0.9</version> -->
         </dependency>
-		<!-- https://mvnrepository.com/artifact/com.janeluo/ikanalyzer -->
-		<dependency>
+		
+		<!-- <dependency>
 	        <groupId>org.apache.lucene</groupId>
 	        <artifactId>lucene-core</artifactId>
 	        <version>5.2.1</version>
@@ -98,7 +98,7 @@
             <artifactId>lucene-smartcn</artifactId>
             <version>3.0.3</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
 		
 		<dependency>
 	      <groupId>com.alibaba</groupId>
