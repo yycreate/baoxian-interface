@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KeyWorkSplit {
-	
+	// extends AbstractIndexAnalyzerProvider<IKAnalyzer>
 	
 
 	

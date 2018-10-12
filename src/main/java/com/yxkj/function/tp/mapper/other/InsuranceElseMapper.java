@@ -13,6 +13,24 @@ import com.yxkj.function.tp.Entity.Insurance;
 @Component
 public interface InsuranceElseMapper {
 	
+	/**
+	 * 查询一份保单包含多少钱
+	 * */
+	@Select("select sum(money),insurance_name from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} GROUP BY insurance_name")
+	public Float sumInsuanceMoney(@Param("insurance_name")String insurance_name);
+	
+	/***
+	 * 查询保单里的金额明细
+	 * */
+	@Select("select * from tp3_ensure_insurace_relation where insurance_name = #{insurance_name}")
+	public List<Map<String, Object>> insuanceTypeTips(@Param("insurance_name")String insurance_name);
+	
+	/**
+	 * 保单详情
+	 * */
+	@Select("select * from tp3_insurance where insurance_id = #{id}")
+	public Map<String, Object> insuanceInfo(@Param("id")Long id, @Param("status")Integer status);
+	
 	@Select("select * from tp3_insurance where policy_holder_name = #{name}")
 	public List<Map<String, Object>> listInsuanceWithName(@Param("name")String name, @Param("status")Integer status);
 	

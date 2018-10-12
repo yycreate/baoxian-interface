@@ -1,6 +1,7 @@
 package com.yxkj.function.tp.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +28,43 @@ public class InsuranceController {
 	//直接调用mapper
 	
 	/***
+	 * 根据id查询保单详细信息
+	 * @param workerNumber 工号
+	 * */
+	@ApiIgnore("根据用户查询表单列表")
+	@RequestMapping(value="/listresuraceById")
+	public Response listresuraceById(
+			@RequestParam(required = true, value="id")@RequestAttribute(required = true, value="主键")Long id
+			) {
+		Response response = new Response<>();
+		try {
+			Map<String, Object> result = new HashMap<>();
+			//查询保单信息
+			result = InsuranceElseMapper.insuanceInfo(id, StatusType.NORMAL.getCode());
+			if(null == result) {
+				return response.failure("没有保单数据");
+			}
+			//统计
+			String typeName = result.get("insurance_type_name").toString();
+			List<Map<String, Object>> tips = InsuranceElseMapper.insuanceTypeTips(typeName);
+			result.put("type", tips); 
+			Float money = InsuranceElseMapper.sumInsuanceMoney(typeName);
+			result.put("money", money);
+			return response.success(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response.failure();
+	}
+	
+	/***
 	 * 根据用户查询表单列表
 	 * @param workerNumber 工号
 	 * */
 	@ApiIgnore("根据用户查询表单列表")
 	@RequestMapping(value="/listresuraceByName")
 	public Response listresurace(
-			@RequestParam(required = true, value="name")@RequestAttribute(required = true, value="名字")
-			String name
+			@RequestParam(required = true, value="name")@RequestAttribute(required = true, value="名字")String name
 			) {
 		Response response = new Response<>();
 		try {

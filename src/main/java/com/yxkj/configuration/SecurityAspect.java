@@ -53,12 +53,10 @@ public class SecurityAspect {
     
     @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void token() {
-    	System.out.println("token");
     }
     
     @Around("token()")
     public Object execute(ProceedingJoinPoint pjp) throws Throwable {
-    	System.out.println("execute");
         // 从切点上获取目标方法
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
         Method method = methodSignature.getMethod();
