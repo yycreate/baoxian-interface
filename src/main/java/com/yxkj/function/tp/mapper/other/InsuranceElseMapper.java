@@ -13,6 +13,14 @@ import com.yxkj.function.tp.Entity.Insurance;
 @Component
 public interface InsuranceElseMapper {
 	
+	
+	/**
+	 * 根据id查询文件地址
+	 * @param 
+	 * */
+	@Select("select url from tp3_insurance_file where insurance_file_id = #{insurance_file_id}")
+	public String urlInfo(@Param("insurance_file_id")Long insurance_file_id);
+			
 	/**
 	 * 查询一份保单包含多少钱
 	 * */
@@ -43,7 +51,7 @@ public interface InsuranceElseMapper {
 	@Select("select count(0) count, policy_holder_name from tp3_insurance where worker_number = #{workerNumber} group by policy_holder_name")
 	public List<Map<String, Object>> personWithInsure(@Param("workerNumber")String workerNumber, @Param("status")Integer status);
 	
-	@Update("UPDATE tp3_insurance SET insurance_number = #{insurance_number}, insurance_type_name = #{insurance_type_name}, insured_creit_card = #{insured_creit_card},	insured_person_name = #{insured_person_name},	insured_person_birthday = #{insured_person_birthday}, policy_creit_card = #{policy_creit_card} policy_holder_name = #{policy_holder_name},  policy_holder_birthday = #{policy_holder_birthday}	sure_num = #{sure_num} WHERE insurance_id = #{insurance_id}")
+	@Update("UPDATE tp3_insurance SET insurance_number = #{insurance_number}, insurance_type_name = #{insurance_type_name}, insured_creit_card = #{insured_creit_card},	insured_person_name = #{insured_person_name},policy_creit_card = #{policy_creit_card}, policy_holder_name = #{policy_holder_name},  policy_holder_birthday = #{policy_holder_birthday},	sure_num = #{sure_num} WHERE insurance_id = #{insurance_id}")
 	void updateInsuraceInfo(Insurance insurance);
 	
 }

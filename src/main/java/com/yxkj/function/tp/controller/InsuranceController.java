@@ -44,10 +44,15 @@ public class InsuranceController {
 			if(null == result) {
 				return response.failure("没有保单数据");
 			}
-			//统计
+			//查询保单的url 图片
+			Long insurance_file_id = Long.parseLong(result.get("file_id").toString());
+			String url = InsuranceElseMapper.urlInfo(insurance_file_id);
+			result.put("url", url);
+			//查询保障明细
 			String typeName = result.get("insurance_type_name").toString();
 			List<Map<String, Object>> tips = InsuranceElseMapper.insuanceTypeTips(typeName);
 			result.put("type", tips); 
+			//统计 保障金额
 			Float money = InsuranceElseMapper.sumInsuanceMoney(typeName);
 			result.put("money", money);
 			return response.success(result);
@@ -150,7 +155,7 @@ public class InsuranceController {
 	 * @return
 	*/
 	@ApiIgnore("更新保单信息")
-	@RequestMapping(value="/updateInsuraceInfo",method = RequestMethod.POST)
+	@RequestMapping(value="/updateInsuraceInfo",method = RequestMethod.GET)
 	public Response updateInsuraceInfo(
 			Long insurance_id,
 			@RequestParam(required = true, value="insurance_number")@RequestAttribute(required = true, value="单号")String insurance_number,
@@ -170,6 +175,7 @@ public class InsuranceController {
 				return response.failure("没有更新的id");
 			}
 			insurance.setInsurance_id(insurance_id);
+			insurance.setSure_num(sure_num);
 			insurance.setInsurance_number(insurance_number);
 			insurance.setInsured_creit_card(insured_creit_card);
 			insurance.setInsured_person_birthday(insured_person_birthday);
