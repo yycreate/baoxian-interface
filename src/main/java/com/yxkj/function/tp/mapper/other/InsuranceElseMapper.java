@@ -12,11 +12,16 @@ import com.yxkj.function.tp.Entity.Insurance;
 
 @Component
 public interface InsuranceElseMapper {
-	
+	/**
+	 * 保障类型统计
+	 * */
+	@Select("select ensure_name,SUM(money) from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} group BY ensure_name")
+	public List<Map<String, Object>> listProtectType(@Param("insurance_name")String insurance_name);
 	
 	/**
 	 * 根据id查询文件地址
-	 * @param 
+	 * @param insurance_file_id 文件id
+	 * @return 文件URL
 	 * */
 	@Select("select url from tp3_insurance_file where insurance_file_id = #{insurance_file_id}")
 	public String urlInfo(@Param("insurance_file_id")Long insurance_file_id);

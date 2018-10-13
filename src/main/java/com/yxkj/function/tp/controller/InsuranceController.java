@@ -21,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping(value="/api/Insurance")
+@SuppressWarnings({"unchecked","rawtypes"})
 public class InsuranceController {
 	
 	@Autowired
@@ -55,6 +56,9 @@ public class InsuranceController {
 			//统计 保障金额
 			Float money = InsuranceElseMapper.sumInsuanceMoney(typeName);
 			result.put("money", money);
+			//保障类型统计
+			List<Map<String, Object>> pt = InsuranceElseMapper.listProtectType(typeName);
+			result.put("pt", pt);
 			return response.success(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,6 +180,7 @@ public class InsuranceController {
 			}
 			insurance.setInsurance_id(insurance_id);
 			insurance.setSure_num(sure_num);
+			insurance.setInsurance_type_name(insurance_type_name);
 			insurance.setInsurance_number(insurance_number);
 			insurance.setInsured_creit_card(insured_creit_card);
 			insurance.setInsured_person_birthday(insured_person_birthday);
