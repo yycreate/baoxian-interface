@@ -17,6 +17,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.yxkj.common.network.Response;
 import com.yxkj.common.util.BaseUtil;
 import com.yxkj.common.util.WxMinCodeUtil;
+import com.yxkj.function.ocr.pojo.XCXConfig;
+import com.yxkj.function.ocr.util.XCXConfigUtil;
 import com.yxkj.function.tp.Entity.User;
 import com.yxkj.function.tp.mapper.other.UserElseMapper;
 
@@ -81,15 +83,13 @@ public class UserController {
 	    js_code: res.code,
 	    grant_type: 'authorization_code'
 	 * */
-	@Value(value="${xcx.appid}")
-	private String appid = "";
-	
-	@Value(value="${xcx.secret}")
-	private String secret;
 	
 	@ApiIgnore(value="小程序登录获取openId")
 	@RequestMapping(value = "/wx/openInfo" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response wxLogin(String js_code, String grant_type) {
+		XCXConfig conf = new XCXConfigUtil().getInstance();
+		String appid = conf.getAppid();
+		String secret = conf.getSecret();
 		Response response = new Response(); 
 		try {
 			JSONObject json = WxMinCodeUtil.getUserInfoTool(appid, secret, js_code);
