@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequest;
@@ -24,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,9 +76,9 @@ public class OcrController {
 	}
 	
 	@ApiIgnore("文件上传并读取信息")
-	@RequestMapping(value = "/upload", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/upload/{worderNumber}", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
-	public String upload(HttpServletRequest request, @RequestParam(value = "img", required = false) MultipartFile file){
+	public String upload(@PathVariable(name="worderNumber",required=true) String worderNumber,HttpServletRequest request, @RequestParam(value = "img", required = false) MultipartFile file){
 		try {
 		request.setCharacterEncoding("UTF-8");
 		String user = request.getParameter("user");
@@ -158,7 +160,7 @@ public class OcrController {
 				su.setInsurance_type_name(aData.get("words").toString().substring(7));
 			}
 		}
-		
+		su.setWorker_number(worderNumber);
 		su.setInsurance_id(id);
 		su.setFile_id(id);
 		fileService.createInsuranceRecord(su);

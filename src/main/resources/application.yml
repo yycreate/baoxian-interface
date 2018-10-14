@@ -29,7 +29,7 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/wxdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       driverClassName: com.mysql.jdbc.Driver
       username: root
-      password: YYMySql2012
+      password: abcd
 eureka: 
   client: 
     registerWithEureka: false
