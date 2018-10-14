@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,13 +81,17 @@ public class UserController {
 	    js_code: res.code,
 	    grant_type: 'authorization_code'
 	 * */
+	@Value(value="${xcx.appid}")
+	private String appid = "";
+	
+	@Value(value="${xcx.secret}")
+	private String secret;
+	
 	@ApiIgnore(value="小程序登录获取openId")
 	@RequestMapping(value = "/wx/openInfo" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response wxLogin(String js_code, String grant_type) {
 		Response response = new Response(); 
 		try {
-			String appid = "wx1987b6657c57763a";
-			String secret = "368cf87ede8a22a2bbae44dafc6b165e";
 			JSONObject json = WxMinCodeUtil.getUserInfoTool(appid, secret, js_code);
 			response.success(json);
 		} catch (Exception e) {
