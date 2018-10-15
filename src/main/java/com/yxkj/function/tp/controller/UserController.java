@@ -34,7 +34,7 @@ public class UserController {
 	@Autowired
 	private UserElseMapper userElseMapper;
 	
-	@RequestMapping(value="infoMessageByOpenId", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="infoMessageByOpenId", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiIgnore("根据openId查询用户信息")
 	public Response infoMessageByOpenId(@RequestParam(required = false, value="open_id")@RequestAttribute(required = false, value="工单id")String open_id) {
 		Response response = new Response(); 
@@ -52,7 +52,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="insertUserInfo", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="insertUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiIgnore("插入用户信息")
 	public Response insertUserInfo(
 			@RequestParam(required = false, value="open_id")@RequestAttribute(required = false, value="工单id")String open_id,
@@ -67,7 +67,7 @@ public class UserController {
 				return response.failure("worker_number为空");
 			}
 			Long id = BaseUtil.GetWorkerId();
-			Map<String, Object> userInfo = userElseMapper.addUserOne(id,open_id,worker_number);
+			Integer userInfo = userElseMapper.addUserOne(id,open_id,worker_number);
 			return response.success(userInfo);
 		} catch (Exception e) {
 			e.printStackTrace();

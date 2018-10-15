@@ -16,7 +16,7 @@ public interface UserElseMapper {
 	public User UserInfo(@Param(value="openId") String openId);
 	
 	@Insert("insert into tp3_user (user_id,open_id,worker_number) values (#{id}, #{openId}, #{workerNumber})")
-	public Map<String, Object> addUserOne(@Param(value="id")Long id,@Param(value="openId") String openId, @Param(value="workerNumber")String workerNumber);
+	public Integer addUserOne(@Param(value="id")Long id,@Param(value="openId") String openId, @Param(value="workerNumber")String workerNumber);
 	
 	
 	
