@@ -15,7 +15,7 @@ public interface InsuranceElseMapper {
 	/**
 	 * 保障类型统计
 	 * */
-	@Select("select ensure_name,SUM(money) from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} group BY ensure_name")
+	@Select("select ensure_name,SUM(money) money from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} group BY ensure_name")
 	public List<Map<String, Object>> listProtectType(@Param("insurance_name")String insurance_name);
 	
 	/**
@@ -29,7 +29,7 @@ public interface InsuranceElseMapper {
 	/**
 	 * 查询一份保单包含多少钱
 	 * */
-	@Select("select sum(money),insurance_name from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} GROUP BY insurance_name")
+	@Select("select sum(money) money,insurance_name from tp3_ensure_insurace_relation where insurance_name = #{insurance_name} GROUP BY insurance_name")
 	public Float sumInsuanceMoney(@Param("insurance_name")String insurance_name);
 	
 	/***
