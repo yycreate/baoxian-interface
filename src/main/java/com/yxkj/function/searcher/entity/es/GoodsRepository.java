@@ -1,6 +1,7 @@
 package com.yxkj.function.searcher.entity.es;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -60,12 +61,17 @@ public class GoodsRepository implements ElasticsearchRepository<Goods,String>{
 
 	@Override
 	public <S extends Goods> S save(S entity) {
+	    String id = new Date().getTime()+"";
+		return save(entity, "cgin", "goods", id);
+	}
+	
+	public <S extends Goods> S save(S entity,String index, String type, String id) {
 		Client client = elasticsearchTemplate.getClient();
 		String source = entity.toString();
-	    IndexResponse response = client.prepareIndex("cgin", "goods", "5").setSource(source).get();
+	    IndexResponse response = client.prepareIndex(index, type, id).setSource(source).get();
 		return entity;
 	}
-
+	
 	@Override
 	public <S extends Goods> Iterable<S> saveAll(Iterable<S> entities) {
 		// TODO Auto-generated method stub
