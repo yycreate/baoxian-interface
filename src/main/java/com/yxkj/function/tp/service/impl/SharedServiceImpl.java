@@ -20,8 +20,6 @@ public class SharedServiceImpl implements SharedService{
 	@Override
 	public Map<String, Object> recordSharedData(String openId, String orderNo) {
 		
-		//查询 微信头像昵称等信息
-		XCXConfig conf = XCXConfigUtil.getInstance();
 		
 		
 		return null;
