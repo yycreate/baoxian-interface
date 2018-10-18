@@ -38,14 +38,13 @@ public class RedisTokenManager implements TokenManager{
     StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public String createToken(String username, String mac, Integer tenantId, Integer userType) {
+    public String createToken(String username, String mac, Integer userType) {
 
         String token = UUID.randomUUID().toString();
         Map<String, Object> value = new HashMap<String, Object>();
 
         value.put("username", username);
         value.put("mac", mac);
-        value.put("tenantId", tenantId);
         value.put("userType", userType);
 
         String valueString = JSONObject.toJSONString(value);
@@ -89,7 +88,7 @@ public class RedisTokenManager implements TokenManager{
     }
 
 
-    public void cancelUser(String userName, Integer tenantId) {
+    public void cancelUser(String userName) {
 
         Set tokenSet = stringRedisTemplate.keys("*");
 
@@ -100,52 +99,9 @@ public class RedisTokenManager implements TokenManager{
 
             JSONObject valueObject = JSONObject.parseObject(value);
             String tokenUsername =valueObject.getString("username");
-            Integer tokenTenantId = valueObject.getInteger("tenantId");
             Integer tokenUserType = valueObject.getInteger("userType");
 
-            if(userName.equals(tokenUsername) && tenantId.equals(tokenTenantId) && UserType.EENANT_EMPLOYEE.getCode().equals(tokenUserType)){
-                stringRedisTemplate.delete(token);
-            }
-        }
-
-    }
-
-    @Override
-    public void cancelMac(String mac, Integer tenantId) {
-
-        Set tokenSet = stringRedisTemplate.keys("*");
-
-        Iterator<String> iterator = tokenSet.iterator();
-        while (iterator.hasNext()){
-            String token = iterator.next();
-            String value = stringRedisTemplate.opsForValue().get(token);
-
-            JSONObject valueObject = JSONObject.parseObject(value);
-            String tokenMac = valueObject.getString("mac");
-            Integer tokenTenantId = valueObject.getInteger("tenantId");
-            Integer tokenUserType = valueObject.getInteger("userType");
-
-            if(mac.equals(tokenMac) && tenantId.equals(tokenTenantId) && UserType.EENANT_EMPLOYEE.getCode().equals(tokenUserType)){
-                stringRedisTemplate.delete(token);
-            }
-        }
-
-    }
-
-    @Override
-    public void cancelTenant(Integer tenantId) {
-
-        Set tokenSet = stringRedisTemplate.keys("*");
-
-        Iterator<String> iterator = tokenSet.iterator();
-        while (iterator.hasNext()){
-            String token = iterator.next();
-            String value = stringRedisTemplate.opsForValue().get(token);
-
-            JSONObject valueObject = JSONObject.parseObject(value);
-            Integer tokenTenantId = valueObject.getInteger("tenantId");
-
-            if(tenantId.equals(tokenTenantId)){
+            if(UserType.EENANT_EMPLOYEE.getCode().equals(tokenUserType)){
                 stringRedisTemplate.delete(token);
             }
         }
@@ -164,4 +120,39 @@ public class RedisTokenManager implements TokenManager{
     public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
+    
+    
+    /***
+     * 微信小程序使用
+     * */
+	@Override
+	public boolean checkAccessToken(String key) {
+		long length = stringRedisTemplate.getExpire(key);
+		if(length>0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean setAccessToken(String key,String token,Long expires) {
+		try {
+			stringRedisTemplate.opsForValue().set(key, token, expires, TimeUnit.SECONDS);
+			return true;
+		} catch (Exception e) {
+			logger.error(key+"键没有存进redis");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean cancelAccessToken(String key) {
+		return stringRedisTemplate.delete(key);
+	}
+
+	@Override
+	public String getAccessToken(String key) {
+		String token = stringRedisTemplate.opsForValue().get(key);
+		return token;
+	}
 }

@@ -5,7 +5,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yxkj.common.network.Response;
+import com.yxkj.common.util.WxUtil;
+import com.yxkj.function.ocr.pojo.XCXConfig;
+import com.yxkj.function.ocr.util.XCXConfigUtil;
+import com.yxkj.function.tp.service.SharedService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -16,7 +21,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @SuppressWarnings({"rawtypes"})
 public class SahredController {
 
-	
+	@Autowired
+	private SharedService sharedService; 
 	
 	
 	/***
@@ -24,22 +30,20 @@ public class SahredController {
 	 * @param openId 
 	 * @param orderNo 分享的保单号
 	 * */
-	@RequestMapping(value="infoMessageByOpenId", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiIgnore("记录分享人分享动作")
+	@RequestMapping(value="record", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response recordShareMessage(
 			String openId,
 			String orderNo
 			) {
 		Response response = new  Response<>();
 		try {
-			
-			
-			
+			sharedService.recordSharedData(openId, orderNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response.failure();
-	}
+	} 
 	
 	
 }

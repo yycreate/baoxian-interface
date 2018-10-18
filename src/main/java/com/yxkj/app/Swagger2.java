@@ -26,17 +26,12 @@ public class Swagger2 {
     	ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
         tokenPar.name("X-Token").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false);
-        pars.add(tokenPar.build());
-        tokenPar.name("X-User").description("用户名").modelRef(new ModelRef("string")).parameterType("header").required(false);
-        pars.add(tokenPar.build());
-        tokenPar.name("dbName").description("库名").modelRef(new ModelRef("string")).parameterType("header").required(false);
-        pars.add(tokenPar.build());
     	
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ut.function.user.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yxkj.function"))
                 .paths(PathSelectors.any())
                 .build().globalOperationParameters(pars);
     }
