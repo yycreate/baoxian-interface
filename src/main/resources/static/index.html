@@ -1,115 +1,40 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>登录页面</title>
-	<link href="" style="">
-	
-	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
-	<style type="text/css">
-		.center{
-			margin: auto;  
-			position: absolute;  
-			top:50%; left: 0; bottom: 0; right: 0;
-			transform:translateY(-50%);	
-		}
-		div.from-inline{
-			margin-top:10px;
-		}
-		body{
-			background:#89c4d2;
-			overflow:hidden;
-		}
-		.cloud{
-			position:absolute;
-		}
-		.cloud:nth-of-type(1){
-			top:23%;
-			left:81%;
-		}
-		.cloud:nth-of-type(2){
-			top:-3%;
-			left:2%;
-		}
-		.cloud:nth-of-type(3){
-			top:55%;
-			left:-15%;
-		}
-		.cloud:nth-of-type(4){
-			top:-4%;
-			left:-99%;
-		}
-	</style>
+ 	<meta charset="UTF-8">
+ 	<meta name="Generator" content="EditPlus®">
+ 	<meta name="Author" content="">
+ 	<meta name="Keywords" content="">
+ 	<meta name="Description" content="">
+ 	<title>login</title>
+ 	<link rel="stylesheet" href="global.css">
+ 	<link rel="stylesheet" href="login.css">
 </head>
-
 <body>
-	
-	<div class="row center">
-		<div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
-		<div class="col-xs-10 col-sm-8 col-md-6 col-lg-4">
-			
-			<form id="loginForm" align="center" style="">
-				<div class="from-inline row">
-					<h3>小小博客</h3>
-				</div>
-				<div class="from-inline row">
-					<input type="text" id="user" value="" style="width:80%;display:inline;" 
-						class="form-control" placeholder="用户名"/>
-				</div>
-				<div class="from-inline row">
-					<input type="password"  id="pwd" style="width:80%;display:inline;" 
-					class="form-control" placeholder="密码"/>
-				</div>
-				<div class="from-inline row">
-					<select class="form-control" style="width:80%;display:inline;">
-						<option value="" selected="selected">角色</option>
-					</select>
-				</div>
-				<div class="from-inline row">
-					<a onclick="login()" style="width:80%;" class="btn btn-primary form-control">登录</a>
-				</div>
-			</form>
-			
-			
-			
+
+	<div class="login_box">
+	<a href="javascript:void(0)"><img src="images/shous.png" class="login_colse" width="30" height="30">
+		<div class="login_logo">
+			Sign in
 		</div>
-		<div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
-	</div><!-- row end -->
-	
-	
-	<script type="text/javascript">
-		/* setInterval(function(){
-			for(var i=0;i<$(".cloud").length;i++){
-				if($(".cloud")[i].offsetLeft>=document.body.clientWidth){
-					$(".cloud").eq(i).css("left",-$(".cloud")[i].offsetWidth+"px");
-				}
-				$(".cloud").eq(i).css("left",$(".cloud")[i].offsetLeft+1.21+"px");
-			}
-		},15); */
-	</script>
-	
-	<script>
-		function login(){
-			//提交
-			$.ajax({
-				url:'http://' + window.location.host + '/user/api/userlogin',
-				data:{
-					password:$('#pwd').val(),
-					loginName:$('#user').val()
-				},
-				type:'post',
-				success:function(res){
-					//跳转
-					window.location.href = 
-						'http://' + window.location.host + '/index'
-				},
-				error:function(){
-					alert("系统繁忙，稍后登录")
-				}
-			});
-		}
-	</script>
+		<div class="login_input mt40">
+			<input type="text" placeholder="用户名">
+			<i class="icon username_tb"></i>
+		</div>
+		<div class="login_input mt20">
+			<input type="password" placeholder="密码">
+			<i class="icon password_tb"></i>
+		</div>
+		<div class="login_input mt20">
+			<button>login</button>
+		</div>
+		<div class="clearfix mt10">
+			<span class="fl"><input type="checkbox" class="mr5">自动登录</span>
+            <span class="fr">立即注册</span>
+			<span class="fr">忘记密码&nbsp;|&nbsp;</span>
+		</div>
+	</div>
+
 	
 </body>
-
 </html>
