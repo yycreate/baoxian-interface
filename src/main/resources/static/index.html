@@ -6,7 +6,7 @@
  	<meta name="Author" content="">
  	<meta name="Keywords" content="">
  	<meta name="Description" content="">
- 	<title>login</title>
+ 	<title>登录页</title>
  	<link rel="stylesheet" href="global.css">
  	<link rel="stylesheet" href="login.css">
 </head>
@@ -18,15 +18,15 @@
 			Sign in
 		</div>
 		<div class="login_input mt40">
-			<input type="text" placeholder="用户名">
+			<input id="user" type="text" placeholder="用户名">
 			<i class="icon username_tb"></i>
 		</div>
 		<div class="login_input mt20">
-			<input type="password" placeholder="密码">
+			<input id="pwd" type="password" placeholder="密码">
 			<i class="icon password_tb"></i>
 		</div>
 		<div class="login_input mt20">
-			<button>login</button>
+			<button onclick="login()">login</button>
 		</div>
 		<div class="clearfix mt10">
 			<span class="fl"><input type="checkbox" class="mr5">自动登录</span>
@@ -34,7 +34,23 @@
 			<span class="fr">忘记密码&nbsp;|&nbsp;</span>
 		</div>
 	</div>
-
+	
+	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+	<script type="text/javascript">
+		var login = function(){
+			$.ajax({
+				url: "/api/admin/login",
+				method: "post",
+				data: {
+					user: $("#user").val(),
+					password: $("#pwd").val()
+				},
+				success: function(res){
+					debugger
+				}
+			})
+		}
+	</script>
 	
 </body>
 </html>

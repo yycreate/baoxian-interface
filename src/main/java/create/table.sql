@@ -14,6 +14,7 @@ CREATE TABLE `tp3_user` (
   `name` varchar(20) DEFAULT NULL COMMENT '用户名',
   `phone` varchar(11) DEFAULT NULL COMMENT '用户电话',
   `worker_number` varchar(8) DEFAULT NULL COMMENT '工号',
+  `password` varchar(200) DEFAULT NULL COMMENT '密码',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `open_id_unique` (`open_id`),
   UNIQUE KEY `worker_number_unique` (`worker_number`)
